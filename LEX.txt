@@ -1,0 +1,111 @@
+/*Разделитель*/
+~	return SEPARATOR;
+:	return COLON;
+
+/*Блок переменных (Создание переменных следующее: значение = имя тип)*/
+\#[0-9]+\#			return INTVAL;
+![0-9]+(\.[0-9]+)?!		return FLOATVAL;
+`[A-Za-z0-9_]{1}` 		return CHARVAL;
+@[A-Za-z0-9_]*@ 		return STRVAL;
+&correct&			return BOOLVAL;
+&bluf&			return BOOLVAL;
+\?[a-zA-Z_][a-zA-Z0-9_]*\?	return VARIABLE;
+
+/*Блок типов данных*/
+flotless		return INT_TYPE;		/*int*/
+flot		return FLOAT_TYPE;		/*float*/
+bard		return STRING_TYPE;	/*string*/
+bell		return CHAR_TYPE;		/*char*/
+bull		return BOOL_TYPE;		/*bool*/
+
+/*Блок ветвлений*/
+fork	return IF;		/*if*/
+nork	return ELSE;	/*else*/
+
+/*Блок функций (создание: тип функция <параметры>: {блок-кода})*/
+spell	return FUNC;	/*function*/
+throw	return RET;	/*throw*/
+->	return CALL;	/*functioncall*/
+
+/*Блок приоритета*/
+<	return LARC;	/*( - как математические скобочки, приоритет операций*/
+>	return RARC;	/* - как математические скобочки, приоритет операций)*/
+
+/*Блок группировки*/
+{	return LBRACE;
+}	return RBRACE;
+
+/*Блок циклов*/
+countfrom		return COUNTFROM;		/*FOR*/
+aslongas		return WHILE;		/*WHILE*/
+
+/*Вывод*/
+scream		return PRINT;	/*printf*/
+
+/*Условный цикл*/
+precycle		return PRECYCLE;	/*if(flag) then (for i in range bla-bla-bla)*/
+
+/*Степень из коробки*/
+power		return POWER;	/*pow*/
+
+/*Блок тернарных операций (Фишка в том, что порядок синтаксиса следующий:  оператор оператор операнд)*/
+sameoverwhelm	return GE;		/* >= */
+samelackof		return LE;		/* <= */
+sameof 		return EQ;		/* == */
+notsameof		return NE;		/* != */
+overwhelm		return GT; 		/* > */
+lackof		return LT;		/* < */
+
+/*Блок операций*/
+=		return ASSIGN;	/*=*/
+boost		return ADD;	/*+*/
+cut		return SUB;	/*-*/
+grow		return MUL;	/*\**/
+bamboozle		return DIV;		/*\/*/
+
+/*Блок мусора*/
+[ \t\r\n]+ 		;	/*skip*/
+.		;	/*unknown ignored*/
+
+/*Пример кода на моем языке
+bull ?mySpell?<bull ?myFlag?>:
+{
+	FORK<sameOf ?myFlag?, &true&>:
+	{
+		scream @It's true!@~
+		throw !12.5!~
+	}
+	FORK NORK:
+	{
+		scream @Not true!@~
+		throw !0.5!~
+	}
+	NORK:
+	{
+		throw !0.0!
+	}
+}
+spell->?mySpell?<&true&> = ?isSpellTrue?~
+#125# = ?board?~
+!53.28! = ?float_number?~
+&correct& = ?flag?~
+@agr!@ = ?word?~
+precycle<?flag?, 5, ?board?, ?counter?>
+{
+	scream<?word?>~	
+}
+
+#2# power #5# = ?powered_number?~
+scream<?powered_number?>~
+
+fork <sameof ?board?, ?powered_number?>
+{
+	scream<?word?>~
+	scream<?board?>~
+}
+nork
+{
+	scream<@THIS CAN'T BE REAL!@>~
+	scream<?powered_number?>~
+}
+*/
