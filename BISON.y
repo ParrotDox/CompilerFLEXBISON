@@ -4,6 +4,8 @@
 char buffer[256];
 %}
 
+%start program
+
 %union {
 	char* str;
 }
@@ -24,11 +26,27 @@ char buffer[256];
 %token <str> SEPARATOR
 %token <str> UNKNOWN
 
-%%
+%type <str> VALUE NAME TYPE MATH_OPER TERNAR_OPER EXPR VAR_DECLARATION INVALID
 
+%%
+program:
+	VAR_DECLARATION
+	;
 VAR_DECLARATION:
-	VALUE ASSIGN NAME TYPE SEPARATOR
+	EXPR ASSIGN NAME TYPE SEPARATOR
 	{ printf("%s %s = %s;\n",$4,$3,$1); }
+EXPR:
+	VALUE
+	{ $$ = $1; }
+	|
+	TERNAR_OPER EXPR EXPR 
+	{ sprintf(buffer, "%s%s%s", $2, $1, $3); $$ = strdup(buffer); }
+	|	
+	EXPR MATH_OPER EXPR
+	{ sprintf(buffer, "%s%s%s", $1, $2, $3); $$ = strdup(buffer); }
+	|
+	LARC EXPR RARC
+	{ $$ = $2; }
 VALUE:
 	INTVAL
 	{ $$ = $1; }
@@ -44,15 +62,6 @@ VALUE:
 	|
 	BOOLVAL
 	{ $$ = $1; }
-	|
-	VALUE MATH_OPER VALUE
-	{ sprintf(buffer, "%s%s%s", $1, $2, $3); $$ = strdup(buffer); }
-	|
-	TERNAR_OPER VALUE VALUE
-	{ sprintf(buffer, "%s%s%s", $2, $1, $3); $$ = strdup(buffer); }
-	|
-	LARC VALUE RARC
-	{ $$ = $2; }
 NAME:
 	VARIABLE
 	{ $$ = $1; }
