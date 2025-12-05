@@ -1,8 +1,15 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 char buffer[256];
+int indent_level = 0;
+int yylex(void);
+void yyerror(const char *s);
 %}
+
+%start program
 
 %union {
 	char* str;
@@ -18,17 +25,76 @@ char buffer[256];
 %token <str> INT_TYPE FLOAT_TYPE STRING_TYPE CHAR_TYPE BOOL_TYPE
 %token <str> IF ELSE FUNC RET CALL
 %token <str> LARC RARC LBRACE RBRACE
-%token <str> COUNTFROM WHILE PRINT PRECYCLE POWER
+%token <str> COUNTFROM WHILE PRINT PRECYCLE POWER FOR
 %token <str> GE LE EQ NE GT LT
 %token <str> ASSIGN ADD SUB MUL DIV
-%token <str> SEPARATOR
+%token <str> SEPARATOR ENUMERATOR COLON SPELL RETURN STAFF
 %token <str> UNKNOWN
 
-%%
+%type <str> VALUE NAME TYPE MATH_OPER TERNAR_OPER EXPR VAR_DECLARATION INVALID STATEMENT
+%type <str> program BLOCK STATEMENTS FUNC_LINK FUNC_DECLARATION PARAMETERS PARAMETER
 
+%%
+program:
+	
+	| 
+	program STATEMENTS
+	{ printf("%s", $2); }
+	;
+BLOCK
+	LBRACE STATEMENTS RBRACE
+	{ sprintf(buffer,"{\n%s\n}",$2); $$ = strdup(buffer);}
+STATEMENTS:
+	STATEMENTS STATEMENT
+	{ sprintf(buffer, "%s\n%s", $1, $2); $$ = strdup(buffer); }
+	|
+	STATEMENT
+	{ $$ = $1; }
+STATEMENT:
+	VAR_DECLARATION
+	{ $$ = $1;}
+	|
+	FUNC_LINK
+	{ $$ = $1; }
+	|
+	FUNC_DECLARATION
+	{ $$ = $1; }
+	|
+	BLOCK
+	{ $$ = $1; }
+	;
 VAR_DECLARATION:
-	VALUE ASSIGN NAME TYPE SEPARATOR
-	{ printf("%s %s = %s;\n",$4,$3,$1); }
+	EXPR ASSIGN NAME TYPE SEPARATOR
+	{ sprintf(buffer, "%s %s = %s;",$4, $3, $1); $$ = strdup(buffer); }
+FUNC_LINK:
+	TYPE NAME LARC PARAMETERS RARC SEPARATOR
+	{ sprintf(buffer, "%s %s(%s);",$1, $2, $4); $$ = strdup(buffer);}
+FUNC_DECLARATION:
+	TYPE NAME LARC PARAMETERS RARC COLON
+	{ sprintf(buffer, "%s %s(%s):", $1, $2, $4); $$ = strdup(buffer); }
+PARAMETERS:
+	PARAMETERS PARAMETER
+	{ sprintf(buffer, "%s%s", $1, $2); $$ = strdup(buffer); }
+	|
+	PARAMETER
+	{ $$ = $1 }
+PARAMETER:
+	TYPE NAME
+	{ sprintf(buffer, "%s %s", $1, $2); $$ = strdup(buffer); }
+	TYPE NAME ENUMERATOR
+	{ sprintf(buffer, "%s %s,", $1, $2); $$ = strdup(buffer); }
+EXPR:
+	VALUE
+	{ $$ = $1; }
+	|
+	TERNAR_OPER EXPR EXPR 
+	{ sprintf(buffer, "%s%s%s", $2, $1, $3); $$ = strdup(buffer); }
+	|	
+	EXPR MATH_OPER EXPR
+	{ sprintf(buffer, "%s%s%s", $1, $2, $3); $$ = strdup(buffer); }
+	|
+	LARC EXPR RARC
+	{ $$ = $2; }
 VALUE:
 	INTVAL
 	{ $$ = $1; }
@@ -44,15 +110,6 @@ VALUE:
 	|
 	BOOLVAL
 	{ $$ = $1; }
-	|
-	VALUE MATH_OPER VALUE
-	{ sprintf(buffer, "%s%s%s", $1, $2, $3); $$ = strdup(buffer); }
-	|
-	TERNAR_OPER VALUE VALUE
-	{ sprintf(buffer, "%s%s%s", $2, $1, $3); $$ = strdup(buffer); }
-	|
-	LARC VALUE RARC
-	{ $$ = $2; }
 NAME:
 	VARIABLE
 	{ $$ = $1; }
