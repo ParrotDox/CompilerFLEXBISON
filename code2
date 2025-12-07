@@ -1,0 +1,16 @@
+[learnspell]flotless->?main?<>
+{
+	&truth& = ?cat? bull~
+	fork<?cat?>
+	{
+		&bluf& = ?cat?~
+	}
+	precycle< ?cat? ~ #0# =?ctr? flotless ~ sameof<?cat?,&bluf&> ~ ?ctr? cut #1# = ?ctr?>
+	{
+		scream<@152@ bard>~
+		scream<`1` bell>~
+		scream<#152# flotless>~
+		scream<!152.9! flot>~
+		scream<&truth& bull>~
+	}
+}

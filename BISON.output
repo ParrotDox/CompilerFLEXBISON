@@ -1,0 +1,1973 @@
+Terminals unused in grammar
+
+   RET
+   CALL
+   PRINT
+   POWER
+   COLON
+   RETURN
+   UNKNOWN
+
+
+State 47 conflicts: 27 reduce/reduce
+State 123 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: STATEMENTS
+
+    2 BLOCK: LBRACE STATEMENTS RBRACE
+
+    3 STATEMENTS: STATEMENT
+    4           | STATEMENTS STATEMENT
+
+    5 STATEMENT: EXPR
+    6          | FULL_INIT
+    7          | VAR_DECLARE
+    8          | PARTIAL_INIT
+    9          | FUNC_CALL_WITH_ARGS
+   10          | FUNC_HEADER_WITH_PARAMS
+   11          | NORKFORK
+   12          | NORK
+   13          | FORK
+   14          | LOOP
+   15          | BLOCK
+   16          | PYCLE
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+   18 LOOP: COUNTFROM
+   19     | ASLONGAS
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC
+
+   21 ASLONGAS: WHILE LARC CONDITION RARC
+
+   22 NORKFORK: ELSEIF LARC CONDITION RARC
+
+   23 NORK: ELSE
+
+   24 FORK: IF LARC CONDITION RARC
+
+   25 CONDITION: EXPR
+
+   26 FUNC_HEADER_WITH_PARAMS: FUNC_HEADER FUNC_HEADER_PARAMS
+
+   27 FUNC_HEADER: LEARNSPELL TYPE STAFF VARIABLE
+
+   28 FUNC_HEADER_PARAMS: ARCS
+   29                   | LARC VAR_DECLARE
+   30                   | FUNC_HEADER_PARAMS ENUMERATOR VAR_DECLARE
+   31                   | FUNC_HEADER_PARAMS RARC
+
+   32 FUNC_CALL_WITH_ARGS: FUNC_CALL_PART FUNC_CALL_ARGS
+
+   33 FUNC_CALL_PART: SPELL STAFF VARIABLE
+
+   34 FUNC_CALL_ARGS: ARCS
+   35               | LARC ATOM
+   36               | FUNC_CALL_ARGS ENUMERATOR ATOM
+   37               | FUNC_CALL_ARGS RARC
+
+   38 FULL_PARTIAL_INITS: FULL_INIT
+   39                   | FULL_PARTIAL_INITS ENUMERATOR PARTIAL_INITS
+
+   40 PARTIAL_INITS: PARTIAL_INIT
+   41              | PARTIAL_INITS ENUMERATOR PARTIAL_INIT
+
+   42 FULL_INIT: VALUE_ASSIGN VAR_DECLARE
+
+   43 PARTIAL_INIT: VALUE_ASSIGN VARIABLE
+
+   44 VAR_DECLARE: VARIABLE TYPE
+
+   45 VALUE_ASSIGN: EXPR ASSIGN
+
+   46 EXPR: MATH_EXPR
+   47     | BOOL_EXPR
+
+   48 MATH_EXPR: SUBADD
+
+   49 SUBADD: MULDIV
+   50       | SUBADD SUB MULDIV
+   51       | SUBADD ADD MULDIV
+
+   52 MULDIV: ATOM
+   53       | MULDIV MUL ATOM
+   54       | MULDIV DIV ATOM
+
+   55 BOOL_EXPR: ATOM
+   56          | COMPARE_OPER LARC BOOL_EXPR ENUMERATOR BOOL_EXPR RARC
+
+   57 ATOM: VALUE
+   58     | VARIABLE
+   59     | LARC BOOL_EXPR RARC
+   60     | LARC MATH_EXPR RARC
+
+   61 ARCS: LARC RARC
+
+   62 VALUE: INTVAL
+   63      | FLOATVAL
+   64      | CHARVAL
+   65      | STRVAL
+   66      | BOOLVAL
+
+   67 TYPE: INT_TYPE
+   68     | FLOAT_TYPE
+   69     | CHAR_TYPE
+   70     | STRING_TYPE
+   71     | BOOL_TYPE
+
+   72 COMPARE_OPER: GE
+   73             | LE
+   74             | EQ
+   75             | NE
+   76             | GT
+   77             | LT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+INTVAL (258) 62
+FLOATVAL (259) 63
+CHARVAL (260) 64
+STRVAL (261) 65
+BOOLVAL (262) 66
+VARIABLE (263) 27 33 43 44 58
+INT_TYPE (264) 67
+FLOAT_TYPE (265) 68
+STRING_TYPE (266) 70
+CHAR_TYPE (267) 69
+BOOL_TYPE (268) 71
+IF (269) 24
+ELSEIF (270) 22
+ELSE (271) 23
+RET (272)
+CALL (273)
+LARC (274) 17 20 21 22 24 29 35 56 59 60 61
+RARC (275) 17 20 21 22 24 31 37 56 59 60 61
+LBRACE (276) 2
+RBRACE (277) 2
+WHILE (278) 21
+FOR (279) 20
+PRINT (280)
+PRECYCLE (281) 17
+POWER (282)
+GE (283) 72
+LE (284) 73
+EQ (285) 74
+NE (286) 75
+GT (287) 76
+LT (288) 77
+ASSIGN (289) 45
+ADD (290) 51
+SUB (291) 50
+MUL (292) 53
+DIV (293) 54
+SEPARATOR (294) 17 20
+ENUMERATOR (295) 30 36 39 41 56
+COLON (296)
+SPELL (297) 33
+RETURN (298)
+STAFF (299) 27 33
+LEARNSPELL (300) 27
+UNKNOWN (301)
+
+
+Nonterminals, with rules where they appear
+
+$accept (47)
+    on left: 0
+program (48)
+    on left: 1, on right: 0
+BLOCK (49)
+    on left: 2, on right: 15 17
+STATEMENTS (50)
+    on left: 3 4, on right: 1 2 4
+STATEMENT (51)
+    on left: 5 6 7 8 9 10 11 12 13 14 15 16, on right: 3 4
+PYCLE (52)
+    on left: 17, on right: 16
+LOOP (53)
+    on left: 18 19, on right: 14
+COUNTFROM (54)
+    on left: 20, on right: 18
+ASLONGAS (55)
+    on left: 21, on right: 19
+NORKFORK (56)
+    on left: 22, on right: 11
+NORK (57)
+    on left: 23, on right: 12
+FORK (58)
+    on left: 24, on right: 13
+CONDITION (59)
+    on left: 25, on right: 17 20 21 22 24
+FUNC_HEADER_WITH_PARAMS (60)
+    on left: 26, on right: 10
+FUNC_HEADER (61)
+    on left: 27, on right: 26
+FUNC_HEADER_PARAMS (62)
+    on left: 28 29 30 31, on right: 26 30 31
+FUNC_CALL_WITH_ARGS (63)
+    on left: 32, on right: 9
+FUNC_CALL_PART (64)
+    on left: 33, on right: 32
+FUNC_CALL_ARGS (65)
+    on left: 34 35 36 37, on right: 32 36 37
+FULL_PARTIAL_INITS (66)
+    on left: 38 39, on right: 17 20 39
+PARTIAL_INITS (67)
+    on left: 40 41, on right: 17 20 39 41
+FULL_INIT (68)
+    on left: 42, on right: 6 38
+PARTIAL_INIT (69)
+    on left: 43, on right: 8 40 41
+VAR_DECLARE (70)
+    on left: 44, on right: 7 29 30 42
+VALUE_ASSIGN (71)
+    on left: 45, on right: 42 43
+EXPR (72)
+    on left: 46 47, on right: 5 25 45
+MATH_EXPR (73)
+    on left: 48, on right: 46 60
+SUBADD (74)
+    on left: 49 50 51, on right: 48 50 51
+MULDIV (75)
+    on left: 52 53 54, on right: 49 50 51 53 54
+BOOL_EXPR (76)
+    on left: 55 56, on right: 47 56 59
+ATOM (77)
+    on left: 57 58 59 60, on right: 35 36 52 53 54 55
+ARCS (78)
+    on left: 61, on right: 28 34
+VALUE (79)
+    on left: 62 63 64 65 66, on right: 57
+TYPE (80)
+    on left: 67 68 69 70 71, on right: 27 44
+COMPARE_OPER (81)
+    on left: 72 73 74 75 76 77, on right: 56
+
+
+State 0
+
+    0 $accept: . program $end
+
+    INTVAL      shift, and go to state 1
+    FLOATVAL    shift, and go to state 2
+    CHARVAL     shift, and go to state 3
+    STRVAL      shift, and go to state 4
+    BOOLVAL     shift, and go to state 5
+    VARIABLE    shift, and go to state 6
+    IF          shift, and go to state 7
+    ELSEIF      shift, and go to state 8
+    ELSE        shift, and go to state 9
+    LARC        shift, and go to state 10
+    LBRACE      shift, and go to state 11
+    WHILE       shift, and go to state 12
+    FOR         shift, and go to state 13
+    PRECYCLE    shift, and go to state 14
+    GE          shift, and go to state 15
+    LE          shift, and go to state 16
+    EQ          shift, and go to state 17
+    NE          shift, and go to state 18
+    GT          shift, and go to state 19
+    LT          shift, and go to state 20
+    SPELL       shift, and go to state 21
+    LEARNSPELL  shift, and go to state 22
+
+    program                  go to state 23
+    BLOCK                    go to state 24
+    STATEMENTS               go to state 25
+    STATEMENT                go to state 26
+    PYCLE                    go to state 27
+    LOOP                     go to state 28
+    COUNTFROM                go to state 29
+    ASLONGAS                 go to state 30
+    NORKFORK                 go to state 31
+    NORK                     go to state 32
+    FORK                     go to state 33
+    FUNC_HEADER_WITH_PARAMS  go to state 34
+    FUNC_HEADER              go to state 35
+    FUNC_CALL_WITH_ARGS      go to state 36
+    FUNC_CALL_PART           go to state 37
+    FULL_INIT                go to state 38
+    PARTIAL_INIT             go to state 39
+    VAR_DECLARE              go to state 40
+    VALUE_ASSIGN             go to state 41
+    EXPR                     go to state 42
+    MATH_EXPR                go to state 43
+    SUBADD                   go to state 44
+    MULDIV                   go to state 45
+    BOOL_EXPR                go to state 46
+    ATOM                     go to state 47
+    VALUE                    go to state 48
+    COMPARE_OPER             go to state 49
+
+
+State 1
+
+   62 VALUE: INTVAL .
+
+    $default  reduce using rule 62 (VALUE)
+
+
+State 2
+
+   63 VALUE: FLOATVAL .
+
+    $default  reduce using rule 63 (VALUE)
+
+
+State 3
+
+   64 VALUE: CHARVAL .
+
+    $default  reduce using rule 64 (VALUE)
+
+
+State 4
+
+   65 VALUE: STRVAL .
+
+    $default  reduce using rule 65 (VALUE)
+
+
+State 5
+
+   66 VALUE: BOOLVAL .
+
+    $default  reduce using rule 66 (VALUE)
+
+
+State 6
+
+   44 VAR_DECLARE: VARIABLE . TYPE
+   58 ATOM: VARIABLE .
+
+    INT_TYPE     shift, and go to state 50
+    FLOAT_TYPE   shift, and go to state 51
+    STRING_TYPE  shift, and go to state 52
+    CHAR_TYPE    shift, and go to state 53
+    BOOL_TYPE    shift, and go to state 54
+
+    $default  reduce using rule 58 (ATOM)
+
+    TYPE  go to state 55
+
+
+State 7
+
+   24 FORK: IF . LARC CONDITION RARC
+
+    LARC  shift, and go to state 56
+
+
+State 8
+
+   22 NORKFORK: ELSEIF . LARC CONDITION RARC
+
+    LARC  shift, and go to state 57
+
+
+State 9
+
+   23 NORK: ELSE .
+
+    $default  reduce using rule 23 (NORK)
+
+
+State 10
+
+   59 ATOM: LARC . BOOL_EXPR RARC
+   60     | LARC . MATH_EXPR RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    MATH_EXPR     go to state 59
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 60
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 11
+
+    2 BLOCK: LBRACE . STATEMENTS RBRACE
+
+    INTVAL      shift, and go to state 1
+    FLOATVAL    shift, and go to state 2
+    CHARVAL     shift, and go to state 3
+    STRVAL      shift, and go to state 4
+    BOOLVAL     shift, and go to state 5
+    VARIABLE    shift, and go to state 6
+    IF          shift, and go to state 7
+    ELSEIF      shift, and go to state 8
+    ELSE        shift, and go to state 9
+    LARC        shift, and go to state 10
+    LBRACE      shift, and go to state 11
+    WHILE       shift, and go to state 12
+    FOR         shift, and go to state 13
+    PRECYCLE    shift, and go to state 14
+    GE          shift, and go to state 15
+    LE          shift, and go to state 16
+    EQ          shift, and go to state 17
+    NE          shift, and go to state 18
+    GT          shift, and go to state 19
+    LT          shift, and go to state 20
+    SPELL       shift, and go to state 21
+    LEARNSPELL  shift, and go to state 22
+
+    BLOCK                    go to state 24
+    STATEMENTS               go to state 61
+    STATEMENT                go to state 26
+    PYCLE                    go to state 27
+    LOOP                     go to state 28
+    COUNTFROM                go to state 29
+    ASLONGAS                 go to state 30
+    NORKFORK                 go to state 31
+    NORK                     go to state 32
+    FORK                     go to state 33
+    FUNC_HEADER_WITH_PARAMS  go to state 34
+    FUNC_HEADER              go to state 35
+    FUNC_CALL_WITH_ARGS      go to state 36
+    FUNC_CALL_PART           go to state 37
+    FULL_INIT                go to state 38
+    PARTIAL_INIT             go to state 39
+    VAR_DECLARE              go to state 40
+    VALUE_ASSIGN             go to state 41
+    EXPR                     go to state 42
+    MATH_EXPR                go to state 43
+    SUBADD                   go to state 44
+    MULDIV                   go to state 45
+    BOOL_EXPR                go to state 46
+    ATOM                     go to state 47
+    VALUE                    go to state 48
+    COMPARE_OPER             go to state 49
+
+
+State 12
+
+   21 ASLONGAS: WHILE . LARC CONDITION RARC
+
+    LARC  shift, and go to state 62
+
+
+State 13
+
+   20 COUNTFROM: FOR . LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC
+
+    LARC  shift, and go to state 63
+
+
+State 14
+
+   17 PYCLE: PRECYCLE . LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    LARC  shift, and go to state 64
+
+
+State 15
+
+   72 COMPARE_OPER: GE .
+
+    $default  reduce using rule 72 (COMPARE_OPER)
+
+
+State 16
+
+   73 COMPARE_OPER: LE .
+
+    $default  reduce using rule 73 (COMPARE_OPER)
+
+
+State 17
+
+   74 COMPARE_OPER: EQ .
+
+    $default  reduce using rule 74 (COMPARE_OPER)
+
+
+State 18
+
+   75 COMPARE_OPER: NE .
+
+    $default  reduce using rule 75 (COMPARE_OPER)
+
+
+State 19
+
+   76 COMPARE_OPER: GT .
+
+    $default  reduce using rule 76 (COMPARE_OPER)
+
+
+State 20
+
+   77 COMPARE_OPER: LT .
+
+    $default  reduce using rule 77 (COMPARE_OPER)
+
+
+State 21
+
+   33 FUNC_CALL_PART: SPELL . STAFF VARIABLE
+
+    STAFF  shift, and go to state 65
+
+
+State 22
+
+   27 FUNC_HEADER: LEARNSPELL . TYPE STAFF VARIABLE
+
+    INT_TYPE     shift, and go to state 50
+    FLOAT_TYPE   shift, and go to state 51
+    STRING_TYPE  shift, and go to state 52
+    CHAR_TYPE    shift, and go to state 53
+    BOOL_TYPE    shift, and go to state 54
+
+    TYPE  go to state 66
+
+
+State 23
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 67
+
+
+State 24
+
+   15 STATEMENT: BLOCK .
+
+    $default  reduce using rule 15 (STATEMENT)
+
+
+State 25
+
+    1 program: STATEMENTS .
+    4 STATEMENTS: STATEMENTS . STATEMENT
+
+    INTVAL      shift, and go to state 1
+    FLOATVAL    shift, and go to state 2
+    CHARVAL     shift, and go to state 3
+    STRVAL      shift, and go to state 4
+    BOOLVAL     shift, and go to state 5
+    VARIABLE    shift, and go to state 6
+    IF          shift, and go to state 7
+    ELSEIF      shift, and go to state 8
+    ELSE        shift, and go to state 9
+    LARC        shift, and go to state 10
+    LBRACE      shift, and go to state 11
+    WHILE       shift, and go to state 12
+    FOR         shift, and go to state 13
+    PRECYCLE    shift, and go to state 14
+    GE          shift, and go to state 15
+    LE          shift, and go to state 16
+    EQ          shift, and go to state 17
+    NE          shift, and go to state 18
+    GT          shift, and go to state 19
+    LT          shift, and go to state 20
+    SPELL       shift, and go to state 21
+    LEARNSPELL  shift, and go to state 22
+
+    $default  reduce using rule 1 (program)
+
+    BLOCK                    go to state 24
+    STATEMENT                go to state 68
+    PYCLE                    go to state 27
+    LOOP                     go to state 28
+    COUNTFROM                go to state 29
+    ASLONGAS                 go to state 30
+    NORKFORK                 go to state 31
+    NORK                     go to state 32
+    FORK                     go to state 33
+    FUNC_HEADER_WITH_PARAMS  go to state 34
+    FUNC_HEADER              go to state 35
+    FUNC_CALL_WITH_ARGS      go to state 36
+    FUNC_CALL_PART           go to state 37
+    FULL_INIT                go to state 38
+    PARTIAL_INIT             go to state 39
+    VAR_DECLARE              go to state 40
+    VALUE_ASSIGN             go to state 41
+    EXPR                     go to state 42
+    MATH_EXPR                go to state 43
+    SUBADD                   go to state 44
+    MULDIV                   go to state 45
+    BOOL_EXPR                go to state 46
+    ATOM                     go to state 47
+    VALUE                    go to state 48
+    COMPARE_OPER             go to state 49
+
+
+State 26
+
+    3 STATEMENTS: STATEMENT .
+
+    $default  reduce using rule 3 (STATEMENTS)
+
+
+State 27
+
+   16 STATEMENT: PYCLE .
+
+    $default  reduce using rule 16 (STATEMENT)
+
+
+State 28
+
+   14 STATEMENT: LOOP .
+
+    $default  reduce using rule 14 (STATEMENT)
+
+
+State 29
+
+   18 LOOP: COUNTFROM .
+
+    $default  reduce using rule 18 (LOOP)
+
+
+State 30
+
+   19 LOOP: ASLONGAS .
+
+    $default  reduce using rule 19 (LOOP)
+
+
+State 31
+
+   11 STATEMENT: NORKFORK .
+
+    $default  reduce using rule 11 (STATEMENT)
+
+
+State 32
+
+   12 STATEMENT: NORK .
+
+    $default  reduce using rule 12 (STATEMENT)
+
+
+State 33
+
+   13 STATEMENT: FORK .
+
+    $default  reduce using rule 13 (STATEMENT)
+
+
+State 34
+
+   10 STATEMENT: FUNC_HEADER_WITH_PARAMS .
+
+    $default  reduce using rule 10 (STATEMENT)
+
+
+State 35
+
+   26 FUNC_HEADER_WITH_PARAMS: FUNC_HEADER . FUNC_HEADER_PARAMS
+
+    LARC  shift, and go to state 69
+
+    FUNC_HEADER_PARAMS  go to state 70
+    ARCS                go to state 71
+
+
+State 36
+
+    9 STATEMENT: FUNC_CALL_WITH_ARGS .
+
+    $default  reduce using rule 9 (STATEMENT)
+
+
+State 37
+
+   32 FUNC_CALL_WITH_ARGS: FUNC_CALL_PART . FUNC_CALL_ARGS
+
+    LARC  shift, and go to state 72
+
+    FUNC_CALL_ARGS  go to state 73
+    ARCS            go to state 74
+
+
+State 38
+
+    6 STATEMENT: FULL_INIT .
+
+    $default  reduce using rule 6 (STATEMENT)
+
+
+State 39
+
+    8 STATEMENT: PARTIAL_INIT .
+
+    $default  reduce using rule 8 (STATEMENT)
+
+
+State 40
+
+    7 STATEMENT: VAR_DECLARE .
+
+    $default  reduce using rule 7 (STATEMENT)
+
+
+State 41
+
+   42 FULL_INIT: VALUE_ASSIGN . VAR_DECLARE
+   43 PARTIAL_INIT: VALUE_ASSIGN . VARIABLE
+
+    VARIABLE  shift, and go to state 75
+
+    VAR_DECLARE  go to state 76
+
+
+State 42
+
+    5 STATEMENT: EXPR .
+   45 VALUE_ASSIGN: EXPR . ASSIGN
+
+    ASSIGN  shift, and go to state 77
+
+    $default  reduce using rule 5 (STATEMENT)
+
+
+State 43
+
+   46 EXPR: MATH_EXPR .
+
+    $default  reduce using rule 46 (EXPR)
+
+
+State 44
+
+   48 MATH_EXPR: SUBADD .
+   50 SUBADD: SUBADD . SUB MULDIV
+   51       | SUBADD . ADD MULDIV
+
+    ADD  shift, and go to state 78
+    SUB  shift, and go to state 79
+
+    $default  reduce using rule 48 (MATH_EXPR)
+
+
+State 45
+
+   49 SUBADD: MULDIV .
+   53 MULDIV: MULDIV . MUL ATOM
+   54       | MULDIV . DIV ATOM
+
+    MUL  shift, and go to state 80
+    DIV  shift, and go to state 81
+
+    $default  reduce using rule 49 (SUBADD)
+
+
+State 46
+
+   47 EXPR: BOOL_EXPR .
+
+    $default  reduce using rule 47 (EXPR)
+
+
+State 47
+
+   52 MULDIV: ATOM .
+   55 BOOL_EXPR: ATOM .
+
+    $end        reduce using rule 52 (MULDIV)
+    $end        [reduce using rule 55 (BOOL_EXPR)]
+    INTVAL      reduce using rule 52 (MULDIV)
+    INTVAL      [reduce using rule 55 (BOOL_EXPR)]
+    FLOATVAL    reduce using rule 52 (MULDIV)
+    FLOATVAL    [reduce using rule 55 (BOOL_EXPR)]
+    CHARVAL     reduce using rule 52 (MULDIV)
+    CHARVAL     [reduce using rule 55 (BOOL_EXPR)]
+    STRVAL      reduce using rule 52 (MULDIV)
+    STRVAL      [reduce using rule 55 (BOOL_EXPR)]
+    BOOLVAL     reduce using rule 52 (MULDIV)
+    BOOLVAL     [reduce using rule 55 (BOOL_EXPR)]
+    VARIABLE    reduce using rule 52 (MULDIV)
+    VARIABLE    [reduce using rule 55 (BOOL_EXPR)]
+    IF          reduce using rule 52 (MULDIV)
+    IF          [reduce using rule 55 (BOOL_EXPR)]
+    ELSEIF      reduce using rule 52 (MULDIV)
+    ELSEIF      [reduce using rule 55 (BOOL_EXPR)]
+    ELSE        reduce using rule 52 (MULDIV)
+    ELSE        [reduce using rule 55 (BOOL_EXPR)]
+    LARC        reduce using rule 52 (MULDIV)
+    LARC        [reduce using rule 55 (BOOL_EXPR)]
+    RARC        reduce using rule 52 (MULDIV)
+    RARC        [reduce using rule 55 (BOOL_EXPR)]
+    LBRACE      reduce using rule 52 (MULDIV)
+    LBRACE      [reduce using rule 55 (BOOL_EXPR)]
+    RBRACE      reduce using rule 52 (MULDIV)
+    RBRACE      [reduce using rule 55 (BOOL_EXPR)]
+    WHILE       reduce using rule 52 (MULDIV)
+    WHILE       [reduce using rule 55 (BOOL_EXPR)]
+    FOR         reduce using rule 52 (MULDIV)
+    FOR         [reduce using rule 55 (BOOL_EXPR)]
+    PRECYCLE    reduce using rule 52 (MULDIV)
+    PRECYCLE    [reduce using rule 55 (BOOL_EXPR)]
+    GE          reduce using rule 52 (MULDIV)
+    GE          [reduce using rule 55 (BOOL_EXPR)]
+    LE          reduce using rule 52 (MULDIV)
+    LE          [reduce using rule 55 (BOOL_EXPR)]
+    EQ          reduce using rule 52 (MULDIV)
+    EQ          [reduce using rule 55 (BOOL_EXPR)]
+    NE          reduce using rule 52 (MULDIV)
+    NE          [reduce using rule 55 (BOOL_EXPR)]
+    GT          reduce using rule 52 (MULDIV)
+    GT          [reduce using rule 55 (BOOL_EXPR)]
+    LT          reduce using rule 52 (MULDIV)
+    LT          [reduce using rule 55 (BOOL_EXPR)]
+    ASSIGN      reduce using rule 52 (MULDIV)
+    ASSIGN      [reduce using rule 55 (BOOL_EXPR)]
+    SEPARATOR   reduce using rule 52 (MULDIV)
+    SEPARATOR   [reduce using rule 55 (BOOL_EXPR)]
+    SPELL       reduce using rule 52 (MULDIV)
+    SPELL       [reduce using rule 55 (BOOL_EXPR)]
+    LEARNSPELL  reduce using rule 52 (MULDIV)
+    LEARNSPELL  [reduce using rule 55 (BOOL_EXPR)]
+    $default    reduce using rule 52 (MULDIV)
+
+
+State 48
+
+   57 ATOM: VALUE .
+
+    $default  reduce using rule 57 (ATOM)
+
+
+State 49
+
+   56 BOOL_EXPR: COMPARE_OPER . LARC BOOL_EXPR ENUMERATOR BOOL_EXPR RARC
+
+    LARC  shift, and go to state 82
+
+
+State 50
+
+   67 TYPE: INT_TYPE .
+
+    $default  reduce using rule 67 (TYPE)
+
+
+State 51
+
+   68 TYPE: FLOAT_TYPE .
+
+    $default  reduce using rule 68 (TYPE)
+
+
+State 52
+
+   70 TYPE: STRING_TYPE .
+
+    $default  reduce using rule 70 (TYPE)
+
+
+State 53
+
+   69 TYPE: CHAR_TYPE .
+
+    $default  reduce using rule 69 (TYPE)
+
+
+State 54
+
+   71 TYPE: BOOL_TYPE .
+
+    $default  reduce using rule 71 (TYPE)
+
+
+State 55
+
+   44 VAR_DECLARE: VARIABLE TYPE .
+
+    $default  reduce using rule 44 (VAR_DECLARE)
+
+
+State 56
+
+   24 FORK: IF LARC . CONDITION RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 83
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 57
+
+   22 NORKFORK: ELSEIF LARC . CONDITION RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 85
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 58
+
+   58 ATOM: VARIABLE .
+
+    $default  reduce using rule 58 (ATOM)
+
+
+State 59
+
+   60 ATOM: LARC MATH_EXPR . RARC
+
+    RARC  shift, and go to state 86
+
+
+State 60
+
+   59 ATOM: LARC BOOL_EXPR . RARC
+
+    RARC  shift, and go to state 87
+
+
+State 61
+
+    2 BLOCK: LBRACE STATEMENTS . RBRACE
+    4 STATEMENTS: STATEMENTS . STATEMENT
+
+    INTVAL      shift, and go to state 1
+    FLOATVAL    shift, and go to state 2
+    CHARVAL     shift, and go to state 3
+    STRVAL      shift, and go to state 4
+    BOOLVAL     shift, and go to state 5
+    VARIABLE    shift, and go to state 6
+    IF          shift, and go to state 7
+    ELSEIF      shift, and go to state 8
+    ELSE        shift, and go to state 9
+    LARC        shift, and go to state 10
+    LBRACE      shift, and go to state 11
+    RBRACE      shift, and go to state 88
+    WHILE       shift, and go to state 12
+    FOR         shift, and go to state 13
+    PRECYCLE    shift, and go to state 14
+    GE          shift, and go to state 15
+    LE          shift, and go to state 16
+    EQ          shift, and go to state 17
+    NE          shift, and go to state 18
+    GT          shift, and go to state 19
+    LT          shift, and go to state 20
+    SPELL       shift, and go to state 21
+    LEARNSPELL  shift, and go to state 22
+
+    BLOCK                    go to state 24
+    STATEMENT                go to state 68
+    PYCLE                    go to state 27
+    LOOP                     go to state 28
+    COUNTFROM                go to state 29
+    ASLONGAS                 go to state 30
+    NORKFORK                 go to state 31
+    NORK                     go to state 32
+    FORK                     go to state 33
+    FUNC_HEADER_WITH_PARAMS  go to state 34
+    FUNC_HEADER              go to state 35
+    FUNC_CALL_WITH_ARGS      go to state 36
+    FUNC_CALL_PART           go to state 37
+    FULL_INIT                go to state 38
+    PARTIAL_INIT             go to state 39
+    VAR_DECLARE              go to state 40
+    VALUE_ASSIGN             go to state 41
+    EXPR                     go to state 42
+    MATH_EXPR                go to state 43
+    SUBADD                   go to state 44
+    MULDIV                   go to state 45
+    BOOL_EXPR                go to state 46
+    ATOM                     go to state 47
+    VALUE                    go to state 48
+    COMPARE_OPER             go to state 49
+
+
+State 62
+
+   21 ASLONGAS: WHILE LARC . CONDITION RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 89
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 63
+
+   20 COUNTFROM: FOR LARC . FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    FULL_PARTIAL_INITS  go to state 90
+    FULL_INIT           go to state 91
+    VALUE_ASSIGN        go to state 92
+    EXPR                go to state 93
+    MATH_EXPR           go to state 43
+    SUBADD              go to state 44
+    MULDIV              go to state 45
+    BOOL_EXPR           go to state 46
+    ATOM                go to state 47
+    VALUE               go to state 48
+    COMPARE_OPER        go to state 49
+
+
+State 64
+
+   17 PYCLE: PRECYCLE LARC . CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 94
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 65
+
+   33 FUNC_CALL_PART: SPELL STAFF . VARIABLE
+
+    VARIABLE  shift, and go to state 95
+
+
+State 66
+
+   27 FUNC_HEADER: LEARNSPELL TYPE . STAFF VARIABLE
+
+    STAFF  shift, and go to state 96
+
+
+State 67
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 68
+
+    4 STATEMENTS: STATEMENTS STATEMENT .
+
+    $default  reduce using rule 4 (STATEMENTS)
+
+
+State 69
+
+   29 FUNC_HEADER_PARAMS: LARC . VAR_DECLARE
+   61 ARCS: LARC . RARC
+
+    VARIABLE  shift, and go to state 97
+    RARC      shift, and go to state 98
+
+    VAR_DECLARE  go to state 99
+
+
+State 70
+
+   26 FUNC_HEADER_WITH_PARAMS: FUNC_HEADER FUNC_HEADER_PARAMS .
+   30 FUNC_HEADER_PARAMS: FUNC_HEADER_PARAMS . ENUMERATOR VAR_DECLARE
+   31                   | FUNC_HEADER_PARAMS . RARC
+
+    RARC        shift, and go to state 100
+    ENUMERATOR  shift, and go to state 101
+
+    $default  reduce using rule 26 (FUNC_HEADER_WITH_PARAMS)
+
+
+State 71
+
+   28 FUNC_HEADER_PARAMS: ARCS .
+
+    $default  reduce using rule 28 (FUNC_HEADER_PARAMS)
+
+
+State 72
+
+   35 FUNC_CALL_ARGS: LARC . ATOM
+   61 ARCS: LARC . RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    RARC      shift, and go to state 98
+
+    ATOM   go to state 102
+    VALUE  go to state 48
+
+
+State 73
+
+   32 FUNC_CALL_WITH_ARGS: FUNC_CALL_PART FUNC_CALL_ARGS .
+   36 FUNC_CALL_ARGS: FUNC_CALL_ARGS . ENUMERATOR ATOM
+   37               | FUNC_CALL_ARGS . RARC
+
+    RARC        shift, and go to state 103
+    ENUMERATOR  shift, and go to state 104
+
+    $default  reduce using rule 32 (FUNC_CALL_WITH_ARGS)
+
+
+State 74
+
+   34 FUNC_CALL_ARGS: ARCS .
+
+    $default  reduce using rule 34 (FUNC_CALL_ARGS)
+
+
+State 75
+
+   43 PARTIAL_INIT: VALUE_ASSIGN VARIABLE .
+   44 VAR_DECLARE: VARIABLE . TYPE
+
+    INT_TYPE     shift, and go to state 50
+    FLOAT_TYPE   shift, and go to state 51
+    STRING_TYPE  shift, and go to state 52
+    CHAR_TYPE    shift, and go to state 53
+    BOOL_TYPE    shift, and go to state 54
+
+    $default  reduce using rule 43 (PARTIAL_INIT)
+
+    TYPE  go to state 55
+
+
+State 76
+
+   42 FULL_INIT: VALUE_ASSIGN VAR_DECLARE .
+
+    $default  reduce using rule 42 (FULL_INIT)
+
+
+State 77
+
+   45 VALUE_ASSIGN: EXPR ASSIGN .
+
+    $default  reduce using rule 45 (VALUE_ASSIGN)
+
+
+State 78
+
+   51 SUBADD: SUBADD ADD . MULDIV
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+
+    MULDIV  go to state 105
+    ATOM    go to state 106
+    VALUE   go to state 48
+
+
+State 79
+
+   50 SUBADD: SUBADD SUB . MULDIV
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+
+    MULDIV  go to state 107
+    ATOM    go to state 106
+    VALUE   go to state 48
+
+
+State 80
+
+   53 MULDIV: MULDIV MUL . ATOM
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+
+    ATOM   go to state 108
+    VALUE  go to state 48
+
+
+State 81
+
+   54 MULDIV: MULDIV DIV . ATOM
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+
+    ATOM   go to state 109
+    VALUE  go to state 48
+
+
+State 82
+
+   56 BOOL_EXPR: COMPARE_OPER LARC . BOOL_EXPR ENUMERATOR BOOL_EXPR RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    BOOL_EXPR     go to state 110
+    ATOM          go to state 111
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 83
+
+   24 FORK: IF LARC CONDITION . RARC
+
+    RARC  shift, and go to state 112
+
+
+State 84
+
+   25 CONDITION: EXPR .
+
+    $default  reduce using rule 25 (CONDITION)
+
+
+State 85
+
+   22 NORKFORK: ELSEIF LARC CONDITION . RARC
+
+    RARC  shift, and go to state 113
+
+
+State 86
+
+   60 ATOM: LARC MATH_EXPR RARC .
+
+    $default  reduce using rule 60 (ATOM)
+
+
+State 87
+
+   59 ATOM: LARC BOOL_EXPR RARC .
+
+    $default  reduce using rule 59 (ATOM)
+
+
+State 88
+
+    2 BLOCK: LBRACE STATEMENTS RBRACE .
+
+    $default  reduce using rule 2 (BLOCK)
+
+
+State 89
+
+   21 ASLONGAS: WHILE LARC CONDITION . RARC
+
+    RARC  shift, and go to state 114
+
+
+State 90
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS . SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC
+   39 FULL_PARTIAL_INITS: FULL_PARTIAL_INITS . ENUMERATOR PARTIAL_INITS
+
+    SEPARATOR   shift, and go to state 115
+    ENUMERATOR  shift, and go to state 116
+
+
+State 91
+
+   38 FULL_PARTIAL_INITS: FULL_INIT .
+
+    $default  reduce using rule 38 (FULL_PARTIAL_INITS)
+
+
+State 92
+
+   42 FULL_INIT: VALUE_ASSIGN . VAR_DECLARE
+
+    VARIABLE  shift, and go to state 97
+
+    VAR_DECLARE  go to state 76
+
+
+State 93
+
+   45 VALUE_ASSIGN: EXPR . ASSIGN
+
+    ASSIGN  shift, and go to state 77
+
+
+State 94
+
+   17 PYCLE: PRECYCLE LARC CONDITION . SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    SEPARATOR  shift, and go to state 117
+
+
+State 95
+
+   33 FUNC_CALL_PART: SPELL STAFF VARIABLE .
+
+    $default  reduce using rule 33 (FUNC_CALL_PART)
+
+
+State 96
+
+   27 FUNC_HEADER: LEARNSPELL TYPE STAFF . VARIABLE
+
+    VARIABLE  shift, and go to state 118
+
+
+State 97
+
+   44 VAR_DECLARE: VARIABLE . TYPE
+
+    INT_TYPE     shift, and go to state 50
+    FLOAT_TYPE   shift, and go to state 51
+    STRING_TYPE  shift, and go to state 52
+    CHAR_TYPE    shift, and go to state 53
+    BOOL_TYPE    shift, and go to state 54
+
+    TYPE  go to state 55
+
+
+State 98
+
+   61 ARCS: LARC RARC .
+
+    $default  reduce using rule 61 (ARCS)
+
+
+State 99
+
+   29 FUNC_HEADER_PARAMS: LARC VAR_DECLARE .
+
+    $default  reduce using rule 29 (FUNC_HEADER_PARAMS)
+
+
+State 100
+
+   31 FUNC_HEADER_PARAMS: FUNC_HEADER_PARAMS RARC .
+
+    $default  reduce using rule 31 (FUNC_HEADER_PARAMS)
+
+
+State 101
+
+   30 FUNC_HEADER_PARAMS: FUNC_HEADER_PARAMS ENUMERATOR . VAR_DECLARE
+
+    VARIABLE  shift, and go to state 97
+
+    VAR_DECLARE  go to state 119
+
+
+State 102
+
+   35 FUNC_CALL_ARGS: LARC ATOM .
+
+    $default  reduce using rule 35 (FUNC_CALL_ARGS)
+
+
+State 103
+
+   37 FUNC_CALL_ARGS: FUNC_CALL_ARGS RARC .
+
+    $default  reduce using rule 37 (FUNC_CALL_ARGS)
+
+
+State 104
+
+   36 FUNC_CALL_ARGS: FUNC_CALL_ARGS ENUMERATOR . ATOM
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+
+    ATOM   go to state 120
+    VALUE  go to state 48
+
+
+State 105
+
+   51 SUBADD: SUBADD ADD MULDIV .
+   53 MULDIV: MULDIV . MUL ATOM
+   54       | MULDIV . DIV ATOM
+
+    MUL  shift, and go to state 80
+    DIV  shift, and go to state 81
+
+    $default  reduce using rule 51 (SUBADD)
+
+
+State 106
+
+   52 MULDIV: ATOM .
+
+    $default  reduce using rule 52 (MULDIV)
+
+
+State 107
+
+   50 SUBADD: SUBADD SUB MULDIV .
+   53 MULDIV: MULDIV . MUL ATOM
+   54       | MULDIV . DIV ATOM
+
+    MUL  shift, and go to state 80
+    DIV  shift, and go to state 81
+
+    $default  reduce using rule 50 (SUBADD)
+
+
+State 108
+
+   53 MULDIV: MULDIV MUL ATOM .
+
+    $default  reduce using rule 53 (MULDIV)
+
+
+State 109
+
+   54 MULDIV: MULDIV DIV ATOM .
+
+    $default  reduce using rule 54 (MULDIV)
+
+
+State 110
+
+   56 BOOL_EXPR: COMPARE_OPER LARC BOOL_EXPR . ENUMERATOR BOOL_EXPR RARC
+
+    ENUMERATOR  shift, and go to state 121
+
+
+State 111
+
+   55 BOOL_EXPR: ATOM .
+
+    $default  reduce using rule 55 (BOOL_EXPR)
+
+
+State 112
+
+   24 FORK: IF LARC CONDITION RARC .
+
+    $default  reduce using rule 24 (FORK)
+
+
+State 113
+
+   22 NORKFORK: ELSEIF LARC CONDITION RARC .
+
+    $default  reduce using rule 22 (NORKFORK)
+
+
+State 114
+
+   21 ASLONGAS: WHILE LARC CONDITION RARC .
+
+    $default  reduce using rule 21 (ASLONGAS)
+
+
+State 115
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR . CONDITION SEPARATOR PARTIAL_INITS RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 122
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 116
+
+   39 FULL_PARTIAL_INITS: FULL_PARTIAL_INITS ENUMERATOR . PARTIAL_INITS
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    PARTIAL_INITS  go to state 123
+    PARTIAL_INIT   go to state 124
+    VALUE_ASSIGN   go to state 125
+    EXPR           go to state 93
+    MATH_EXPR      go to state 43
+    SUBADD         go to state 44
+    MULDIV         go to state 45
+    BOOL_EXPR      go to state 46
+    ATOM           go to state 47
+    VALUE          go to state 48
+    COMPARE_OPER   go to state 49
+
+
+State 117
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR . FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    FULL_PARTIAL_INITS  go to state 126
+    FULL_INIT           go to state 91
+    VALUE_ASSIGN        go to state 92
+    EXPR                go to state 93
+    MATH_EXPR           go to state 43
+    SUBADD              go to state 44
+    MULDIV              go to state 45
+    BOOL_EXPR           go to state 46
+    ATOM                go to state 47
+    VALUE               go to state 48
+    COMPARE_OPER        go to state 49
+
+
+State 118
+
+   27 FUNC_HEADER: LEARNSPELL TYPE STAFF VARIABLE .
+
+    $default  reduce using rule 27 (FUNC_HEADER)
+
+
+State 119
+
+   30 FUNC_HEADER_PARAMS: FUNC_HEADER_PARAMS ENUMERATOR VAR_DECLARE .
+
+    $default  reduce using rule 30 (FUNC_HEADER_PARAMS)
+
+
+State 120
+
+   36 FUNC_CALL_ARGS: FUNC_CALL_ARGS ENUMERATOR ATOM .
+
+    $default  reduce using rule 36 (FUNC_CALL_ARGS)
+
+
+State 121
+
+   56 BOOL_EXPR: COMPARE_OPER LARC BOOL_EXPR ENUMERATOR . BOOL_EXPR RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    BOOL_EXPR     go to state 127
+    ATOM          go to state 111
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 122
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION . SEPARATOR PARTIAL_INITS RARC
+
+    SEPARATOR  shift, and go to state 128
+
+
+State 123
+
+   39 FULL_PARTIAL_INITS: FULL_PARTIAL_INITS ENUMERATOR PARTIAL_INITS .
+   41 PARTIAL_INITS: PARTIAL_INITS . ENUMERATOR PARTIAL_INIT
+
+    ENUMERATOR  shift, and go to state 129
+
+    ENUMERATOR  [reduce using rule 39 (FULL_PARTIAL_INITS)]
+    $default    reduce using rule 39 (FULL_PARTIAL_INITS)
+
+
+State 124
+
+   40 PARTIAL_INITS: PARTIAL_INIT .
+
+    $default  reduce using rule 40 (PARTIAL_INITS)
+
+
+State 125
+
+   43 PARTIAL_INIT: VALUE_ASSIGN . VARIABLE
+
+    VARIABLE  shift, and go to state 130
+
+
+State 126
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS . SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+   39 FULL_PARTIAL_INITS: FULL_PARTIAL_INITS . ENUMERATOR PARTIAL_INITS
+
+    SEPARATOR   shift, and go to state 131
+    ENUMERATOR  shift, and go to state 116
+
+
+State 127
+
+   56 BOOL_EXPR: COMPARE_OPER LARC BOOL_EXPR ENUMERATOR BOOL_EXPR . RARC
+
+    RARC  shift, and go to state 132
+
+
+State 128
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR . PARTIAL_INITS RARC
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    PARTIAL_INITS  go to state 133
+    PARTIAL_INIT   go to state 124
+    VALUE_ASSIGN   go to state 125
+    EXPR           go to state 93
+    MATH_EXPR      go to state 43
+    SUBADD         go to state 44
+    MULDIV         go to state 45
+    BOOL_EXPR      go to state 46
+    ATOM           go to state 47
+    VALUE          go to state 48
+    COMPARE_OPER   go to state 49
+
+
+State 129
+
+   41 PARTIAL_INITS: PARTIAL_INITS ENUMERATOR . PARTIAL_INIT
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    PARTIAL_INIT  go to state 134
+    VALUE_ASSIGN  go to state 125
+    EXPR          go to state 93
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 130
+
+   43 PARTIAL_INIT: VALUE_ASSIGN VARIABLE .
+
+    $default  reduce using rule 43 (PARTIAL_INIT)
+
+
+State 131
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR . CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    CONDITION     go to state 135
+    EXPR          go to state 84
+    MATH_EXPR     go to state 43
+    SUBADD        go to state 44
+    MULDIV        go to state 45
+    BOOL_EXPR     go to state 46
+    ATOM          go to state 47
+    VALUE         go to state 48
+    COMPARE_OPER  go to state 49
+
+
+State 132
+
+   56 BOOL_EXPR: COMPARE_OPER LARC BOOL_EXPR ENUMERATOR BOOL_EXPR RARC .
+
+    $default  reduce using rule 56 (BOOL_EXPR)
+
+
+State 133
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS . RARC
+   41 PARTIAL_INITS: PARTIAL_INITS . ENUMERATOR PARTIAL_INIT
+
+    RARC        shift, and go to state 136
+    ENUMERATOR  shift, and go to state 129
+
+
+State 134
+
+   41 PARTIAL_INITS: PARTIAL_INITS ENUMERATOR PARTIAL_INIT .
+
+    $default  reduce using rule 41 (PARTIAL_INITS)
+
+
+State 135
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION . SEPARATOR PARTIAL_INITS RARC BLOCK
+
+    SEPARATOR  shift, and go to state 137
+
+
+State 136
+
+   20 COUNTFROM: FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC .
+
+    $default  reduce using rule 20 (COUNTFROM)
+
+
+State 137
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR . PARTIAL_INITS RARC BLOCK
+
+    INTVAL    shift, and go to state 1
+    FLOATVAL  shift, and go to state 2
+    CHARVAL   shift, and go to state 3
+    STRVAL    shift, and go to state 4
+    BOOLVAL   shift, and go to state 5
+    VARIABLE  shift, and go to state 58
+    LARC      shift, and go to state 10
+    GE        shift, and go to state 15
+    LE        shift, and go to state 16
+    EQ        shift, and go to state 17
+    NE        shift, and go to state 18
+    GT        shift, and go to state 19
+    LT        shift, and go to state 20
+
+    PARTIAL_INITS  go to state 138
+    PARTIAL_INIT   go to state 124
+    VALUE_ASSIGN   go to state 125
+    EXPR           go to state 93
+    MATH_EXPR      go to state 43
+    SUBADD         go to state 44
+    MULDIV         go to state 45
+    BOOL_EXPR      go to state 46
+    ATOM           go to state 47
+    VALUE          go to state 48
+    COMPARE_OPER   go to state 49
+
+
+State 138
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS . RARC BLOCK
+   41 PARTIAL_INITS: PARTIAL_INITS . ENUMERATOR PARTIAL_INIT
+
+    RARC        shift, and go to state 139
+    ENUMERATOR  shift, and go to state 129
+
+
+State 139
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC . BLOCK
+
+    LBRACE  shift, and go to state 11
+
+    BLOCK  go to state 140
+
+
+State 140
+
+   17 PYCLE: PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK .
+
+    $default  reduce using rule 17 (PYCLE)
