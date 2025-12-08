@@ -44,12 +44,12 @@ char* strip_delimiters(const char* yytext)
 "scream"                       	{ yylval.str = "printf";					return PRINT; }
 "precycle"                     	{ yylval.str = "precycle";					return PRECYCLE; }
 
-"sameoverwhelm"                	{ yylval.str = ">=";						return GE; }
-"samelackof"                   	{ yylval.str = "<=";						return LE; }
-"sameof"                       	{ yylval.str = "==";						return EQ; }
-"notsameof"                    	{ yylval.str = "!=";						return NE; }
-"overwhelm"                  	{ yylval.str = ">";							return GT; }
-"lackof"                      	{ yylval.str = "<";							return LT; }
+"dominion"                		{ yylval.str = ">=";						return GE; }
+"submission"                   	{ yylval.str = "<=";						return LE; }
+"congruence"                    { yylval.str = "==";						return EQ; }
+"dispersion"                    { yylval.str = "!=";						return NE; }
+"ascendacy"                  	{ yylval.str = ">";							return GT; }
+"subjugation"                   { yylval.str = "<";							return LT; }
 
 "boost"                       	{ yylval.str = "+";							return ADD; }
 "cut"                          	{ yylval.str = "-";							return SUB; }
