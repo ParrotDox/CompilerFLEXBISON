@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char buffer[512];
+char buffer[2048];
 int indent_level = 0;
 int yylex(void);
 void yyerror(const char *s);
@@ -27,29 +27,6 @@ void yyerror(const char *s);
 %token <str> SEPARATOR ENUMERATOR COLON SPELL RETURN STAFF LEARNSPELL
 %token <str> UNKNOWN
 
-<<<<<<< HEAD
-%type <str> VALUE NAME TYPE MATH_OPER TERNAR_OPER EXPR VAR_DECLARATION INVALID
-
-%%
-program:
-	VAR_DECLARATION
-	;
-VAR_DECLARATION:
-	EXPR ASSIGN NAME TYPE SEPARATOR
-	{ printf("%s %s = %s;\n",$4,$3,$1); }
-EXPR:
-	VALUE
-	{ $$ = $1; }
-	|
-	TERNAR_OPER EXPR EXPR 
-	{ sprintf(buffer, "%s%s%s", $2, $1, $3); $$ = strdup(buffer); }
-	|	
-	EXPR MATH_OPER EXPR
-	{ sprintf(buffer, "%s%s%s", $1, $2, $3); $$ = strdup(buffer); }
-	|
-	LARC EXPR RARC
-	{ $$ = $2; }
-=======
 %type <str> program BLOCK STATEMENTS STATEMENT
 %type <str> CONSOLE_OUTPUT
 %type <str> PYCLE
@@ -83,7 +60,7 @@ STATEMENTS:
 	{ $$ = $1; }
 	|
 	STATEMENTS STATEMENT
-	{ sprintf(buffer, "%s\n%s", $1, $2); $$ = strdup(buffer); }
+	{ sprintf(buffer, "%s\n%s", $1, $2); $$ = strdup(buffer); free($1); }
 STATEMENT:
 	EXPR SEPARATOR
 	{ sprintf(buffer, "%s%s", $1,$2); $$ = strdup(buffer); }
@@ -145,7 +122,7 @@ CONSOLE_OUTPUT:
 	{ 
 		sprintf(buffer, "printf(\"%%f\\n\", %s)", $3); $$ = strdup(buffer); 
 	}
-	|
+        |
 	PRINT LARC EXPR STRING_TYPE RARC
 	{ 
 		sprintf(buffer, "printf(\"%%s\\n\", %s)", $3); $$ = strdup(buffer); 
@@ -153,18 +130,21 @@ CONSOLE_OUTPUT:
 	|
 	PRINT LARC EXPR CHAR_TYPE RARC
 	{ 
-		sprintf(buffer, "printf(\"%%c\\n\", %s)", $3); $$ = strdup(buffer); 
+		sprintf(buffer, "printf(\"%%c\\n\", %s)", $3); $$ = strdup(buffer);
 	}
-	|
+        |
 	PRINT LARC EXPR BOOL_TYPE RARC
 	{ 
-		sprintf(buffer, "printf(\"%%d\\n\", %s)", $3); $$ = strdup(buffer); 
+		sprintf(buffer, "printf(\"%%d\\n\", %s)", $3); $$ = strdup(buffer);
 	}
 //Цикл с предусловием
 PYCLE:
 	//  1      2      3        4                5           6         7        8           9          10    11
 	PRECYCLE LARC CONDITION SEPARATOR FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC BLOCK
-	{ sprintf(buffer, "if%s%s%s\n{\nfor%s%s%s%s%s%s%s\n%s\n}", $2, $3, $10, $2, $5, $6, $7, $8, $9, $10, $11); $$ = strdup(buffer); }
+	{ 
+		sprintf(buffer, "if%s%s%s\n{\nfor%s%s%s%s%s%s%s\n%s\n}", $2, $3, $10, $2, $5, $6, $7, $8, $9, $10, $11);
+		$$ = strdup(buffer); 
+	}
 
 
 //Циклы
@@ -176,7 +156,10 @@ LOOP:
 	{ $$ = $1; }
 COUNTFROM:
 	FOR LARC FULL_PARTIAL_INITS SEPARATOR CONDITION SEPARATOR PARTIAL_INITS RARC
-	{ sprintf(buffer, "%s%s%s%s%s%s%s%s", $1, $2, $3, $4, $5, $6, $7, $8); $$ = strdup(buffer); }
+	{ 
+		sprintf(buffer, "%s%s%s%s%s%s%s%s", $1, $2, $3, $4, $5, $6, $7, $8); 
+		$$ = strdup(buffer); 
+	}
 ASLONGAS:
 	WHILE LARC CONDITION RARC
 	{ sprintf(buffer, "%s%s%s%s", $1, $2, $3, $4); $$ = strdup(buffer); }
@@ -200,7 +183,7 @@ CONDITION:
 //Возврат значения
 RET_VAL:
 	RETURN VOID_TYPE
-	{ $$ = $1; }
+	{ $$ = $1;  }
 	|
 	RETURN FUNC_CALL_WITH_ARGS
 	{ sprintf(buffer, "%s %s", $1,$2); $$ = strdup(buffer); }
@@ -273,6 +256,9 @@ VAR_DECLARE:
 VALUE_ASSIGN:
 	EXPR ASSIGN
 	{ sprintf(buffer, "%s%s", $2, $1); $$ = strdup(buffer); }
+	|
+	FUNC_CALL_WITH_ARGS ASSIGN
+	{ sprintf(buffer, "%s%s", $2, $1); $$ = strdup(buffer); }
 
 
 //Объединение нетерминалов операций
@@ -325,7 +311,6 @@ ARCS:
 	LARC RARC
 	{ sprintf(buffer, "%s%s", $1, $2); $$ = strdup(buffer); }
 // ТЕРМИНАЛЫ
->>>>>>> 0361e544df99ff0489ec8ba1030f8588d107c011
 VALUE:
 	INTVAL
 	{ $$ = $1; }
@@ -341,13 +326,7 @@ VALUE:
 	|
 	BOOLVAL
 	{ $$ = $1; }
-<<<<<<< HEAD
-NAME:
-	VARIABLE
-	{ $$ = $1; }
-=======
 	;
->>>>>>> 0361e544df99ff0489ec8ba1030f8588d107c011
 TYPE:
 	INT_TYPE
 	{ $$ = $1; }

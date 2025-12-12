@@ -49,12 +49,24 @@ precycle		return PRECYCLE;	/*if(flag) then (for i in range bla-bla-bla)*/
 power		return POWER;	/*pow*/
 
 /*Блок тернарных операций (Фишка в том, что порядок синтаксиса следующий:  оператор оператор операнд)*/
-sameoverwhelm	return GE;		/* >= */
-samelackof		return LE;		/* <= */
-sameof 		return EQ;		/* == */
-notsameof		return NE;		/* != */
-overwhelm		return GT; 		/* > */
-lackof		return LT;		/* < */
+dominion		return GE;		/* >= */
+submission		return LE;		/* <= */
+congruence		return EQ;		/* == */
+dispersion		return NE;		/* != */
+ascendacy		return GT; 		/* > */
+subjugation	return LT;		/* < */
+ИЛИ
+sameoverwhelm (>=) → DOMINION (Владение — власть над равным или низшим)
+
+samelackof (<=) → SUBMISSION (Повиновение — подчинение равному или высшему)
+
+sameof (==) → CONGRUENCE (Совпадение — полное слияние сущностей)
+
+notsameof (!=) → DISPERSION (Разъединение — разрыв сродства)
+
+overwhelm (>) → ASCENDANCY (Превосходство — безусловный приоритет)
+
+lackof (<) → SUBJUGATION (Подчинение — безусловная вторичность)
 
 /*Блок операций*/
 =		return ASSIGN;	/*=*/

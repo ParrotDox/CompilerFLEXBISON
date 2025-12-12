@@ -1,0 +1,15 @@
+["somelibrary.h"]
+[CALL HERCULES]
+[learnspell]flotless->?main?<>
+{
+	&truth& = ?cat? bull~
+	fork<?cat?>
+	{
+		&bluf& = ?cat?~
+	}
+	precycle< sameof<?cat?,&bluf&> ~ #20# =?ctr? flotless ~ overwhelm<?ctr?,#10#> ~ ?ctr? cut #1# = ?ctr?>
+	{
+		scream<@"@!#%aggggr%#!@"@ bard>~
+	}
+	throw #0#~
+}
