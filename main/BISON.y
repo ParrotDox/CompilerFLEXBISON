@@ -4,7 +4,6 @@
 #include <string.h>
 
 char buffer[2048];
-int indent_level = 0;
 int yylex(void);
 void yyerror(const char *s);
 %}
